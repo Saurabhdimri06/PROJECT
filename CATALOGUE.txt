@@ -1,0 +1,10 @@
+In this repo the work is done on the project that is on c++ language
+The DEVELOPERS 
+Rachit 
+Rishabh
+Shivam
+Pratyush
+Sajal 
+are to expand the codes for each of the scenarios.
+
+The log is then maintained to track the changes in the system.

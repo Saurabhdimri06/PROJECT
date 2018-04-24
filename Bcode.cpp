@@ -135,9 +135,36 @@ char account::rettype() const
 void write_account();			//function to write record in binary file 		
 void display_sp(int);			//Changes had been done (SHIVAM)
 void modify_account(int);		//function to modify record of file (SAJAL)
+<<<<<<< HEAD
 void delete_account(int);		//Required changes done (PRATYUSH)
 void display_all();			//function to display all account details (RISHABH)
 void deposit_withdraw(int, int); 	// Required changes had been commited (RACHIT)
+=======
+void delete_account(int);		//function to delete record of file (PRATYUSH)
+void display_all(){
+	account ac;
+	ifstream inFile;
+	inFile.open("account.dat",ios::binary);
+	if(!inFile)
+	{
+		cout<<"File could not be open !! Press any Key...";
+		return;
+	}
+	cout<<"\n\n\t\tACCOUNT HOLDER LIST\n\n";
+	cout<<"====================================================\n";
+	cout<<"A/c no.      NAME           Type  Balance\n";
+	cout<<"====================================================\n";
+	while(inFile.read((char *) &ac, sizeof(account)))
+	{
+		ac.report();
+	}
+	inFile.close();
+};// peice of code added by rishabh			
+//function to display 
+all 
+account details (RISHABH)
+void deposit_withdraw(int, int); 	// function to desposit/withdraw amount for given account (RACHIT)
+>>>>>>> origin/rishabh
 void intro();				//introductory screen function
 
 //***************************************************************

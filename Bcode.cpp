@@ -18,7 +18,38 @@ class account
 public:
 	void create_account();	//function to get data from user
 	void show_account() const;	//function to show data on screen
-	void modify();	//function to add new data
+	//added by sajal
+        void modify_account(int n)
+{
+	int found=0;
+	account ac;
+	fstream File;
+    File.open("account.dat",ios::binary|ios::in|ios::out);
+	if(!File)
+	{
+		cout<<"File could not be open !! Press any Key...";
+		return;
+	}
+    while(File.read((char *) &ac, sizeof(account)) && found==0)
+	{
+		if(ac.retacno()==n)
+		{
+			ac.show_account();
+			cout<<"\n\nEnter The New Details of account"<<endl;
+			ac.modify();
+			int pos=(-1)*sizeof(account);
+			File.seekp(pos,ios::cur);
+		    File.write((char *) &ac, sizeof(account));
+		    cout<<"\n\n\t Record Updated";
+		    found=1;
+		  }
+	}
+	File.close();
+	if(found==0)
+		cout<<"\n\n Record Not Found ";
+}
+
+	//function to add new data
 	void dep(int);	//function to accept amount and add to balance amount
 	void draw(int);	//function to accept amount and subtract from balance amount
 	void report() const;	//function to show data in tabular format

@@ -105,7 +105,28 @@ void write_account();			//function to write record in binary file
 void display_sp(int);			//function to display account details given by user (SHIVAM)
 void modify_account(int);		//function to modify record of file (SAJAL)
 void delete_account(int);		//function to delete record of file (PRATYUSH)
-void display_all();			//function to display all account details (RISHABH)
+void display_all(){
+	account ac;
+	ifstream inFile;
+	inFile.open("account.dat",ios::binary);
+	if(!inFile)
+	{
+		cout<<"File could not be open !! Press any Key...";
+		return;
+	}
+	cout<<"\n\n\t\tACCOUNT HOLDER LIST\n\n";
+	cout<<"====================================================\n";
+	cout<<"A/c no.      NAME           Type  Balance\n";
+	cout<<"====================================================\n";
+	while(inFile.read((char *) &ac, sizeof(account)))
+	{
+		ac.report();
+	}
+	inFile.close();
+};// peice of code added by rishabh			
+//function to display 
+all 
+account details (RISHABH)
 void deposit_withdraw(int, int); 	// function to desposit/withdraw amount for given account (RACHIT)
 void intro();				//introductory screen function
 

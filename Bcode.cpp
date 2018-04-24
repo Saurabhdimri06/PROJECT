@@ -102,7 +102,7 @@ char account::rettype() const
 //    	function declaration
 //****************************************************************
 void write_account();			//function to write record in binary file 		
-void display_sp(int);			//function to display account details given by user (SHIVAM)
+void display_sp(int);			//Changes had been done (SHIVAM)
 void modify_account(int);		//function to modify record of file (SAJAL)
 void delete_account(int);		//function to delete record of file (PRATYUSH)
 void display_all();			//function to display all account details (RISHABH)
@@ -187,6 +187,36 @@ void write_account()
 	outFile.write(reinterpret_cast<char *> (&ac), sizeof(account));
 	outFile.close();
 }
+
+//***************************************************************
+//    	function to read specific record from file
+//****************************************************************
+
+void display_sp(int n)
+{
+	account ac;
+	int flag=0;
+	ifstream inFile;
+    inFile.open("account.dat",ios::binary);
+	if(!inFile)
+	{
+		cout<<"File could not be open !! Press any Key...";
+		return;
+	}
+	cout<<"\nBALANCE DETAILS\n";
+    while(inFile.read((char *) &ac, sizeof(account)))
+	{
+		if(ac.retacno()==n)
+		{
+			ac.show_account();
+			flag=1;
+		}
+	}
+    inFile.close();
+	if(flag==0)
+		cout<<"\n\nAccount number does not exist";
+}
+
 
 
 //***************************************************************

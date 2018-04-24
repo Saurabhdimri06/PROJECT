@@ -106,7 +106,7 @@ void display_sp(int);			//Changes had been done (SHIVAM)
 void modify_account(int);		//function to modify record of file (SAJAL)
 void delete_account(int);		//function to delete record of file (PRATYUSH)
 void display_all();			//function to display all account details (RISHABH)
-void deposit_withdraw(int, int); 	// function to desposit/withdraw amount for given account (RACHIT)
+void deposit_withdraw(int, int); 	// Required changes had been commited (RACHIT)
 void intro();				//introductory screen function
 
 //***************************************************************
@@ -188,6 +188,7 @@ void write_account()
 	outFile.close();
 }
 
+<<<<<<< HEAD
 //***************************************************************
 //    	function to read specific record from file
 //****************************************************************
@@ -218,7 +219,58 @@ void display_sp(int n)
 }
 
 
+=======
+/***************************************************************
+//    	function to deposit and withdraw amounts
+//****************************************************************
+>>>>>>> origin/code1
 
+void deposit_withdraw(int n, int option)
+{
+	int amt;
+	int found=0;
+	account ac;
+	fstream File;
+    File.open("account.dat", ios::binary|ios::in|ios::out);
+	if(!File)
+	{
+		cout<<"File could not be open !! Press any Key...";
+		return;
+	}
+    while(File.read((char *) &ac, sizeof(account)) && found==0)
+	{
+		if(ac.retacno()==n)
+		{
+			ac.show_account();
+			if(option==1)
+			{
+				cout<<"\n\n\tTO DEPOSITE AMOUNT ";
+				cout<<"\n\nEnter The amount to be deposited";
+				cin>>amt;
+				ac.dep(amt);
+			}
+		    if(option==2)
+			{
+				cout<<"\n\n\tTO WITHDRAW AMOUNT ";
+				cout<<"\n\nEnter The amount to be withdraw";
+				cin>>amt;
+				int bal=ac.retdeposit()-amt;
+				if((bal<500 && ac.rettype()=='S') || (bal<1000 && ac.rettype()=='C'))
+					cout<<"Insufficience balance";
+				else
+					ac.draw(amt);
+		      }
+			int pos=(-1)* sizeof(ac);
+			File.seekp(pos,ios::cur);
+			File.write((char *) &ac, sizeof(account));
+			cout<<"\n\n\t Record Updated";
+			found=1;
+	       }
+	 }
+    File.close();
+	if(found==0)
+		cout<<"\n\n Record Not Found ";
+}
 //***************************************************************
 //    	         function for introduction
 //****************************************************************

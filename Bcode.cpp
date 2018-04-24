@@ -135,7 +135,7 @@ char account::rettype() const
 void write_account();			//function to write record in binary file 		
 void display_sp(int);			//Changes had been done (SHIVAM)
 void modify_account(int);		//function to modify record of file (SAJAL)
-void delete_account(int);		//function to delete record of file (PRATYUSH)
+void delete_account(int);		//Required changes done (PRATYUSH)
 void display_all();			//function to display all account details (RISHABH)
 void deposit_withdraw(int, int); 	// Required changes had been commited (RACHIT)
 void intro();				//introductory screen function
@@ -220,6 +220,7 @@ void write_account()
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //***************************************************************
 //    	function to read specific record from file
 //****************************************************************
@@ -230,11 +231,25 @@ void display_sp(int n)
 	int flag=0;
 	ifstream inFile;
     inFile.open("account.dat",ios::binary);
+=======
+//***************************************************************
+//    	function to delete record of file
+//****************************************************************
+
+
+void delete_account(int n)
+{
+	account ac;
+	ifstream inFile;
+	ofstream outFile;
+	inFile.open("account.dat",ios::binary);
+>>>>>>> origin/code4
 	if(!inFile)
 	{
 		cout<<"File could not be open !! Press any Key...";
 		return;
 	}
+<<<<<<< HEAD
 	cout<<"\nBALANCE DETAILS\n";
     while(inFile.read((char *) &ac, sizeof(account)))
 	{
@@ -255,6 +270,23 @@ void display_sp(int n)
 //    	function to deposit and withdraw amounts
 //****************************************************************
 >>>>>>> origin/code1
+=======
+	outFile.open("Temp.dat",ios::binary);
+	inFile.seekg(0,ios::beg);
+	while(inFile.read((char *) &ac, sizeof(account)))
+	{
+		if(ac.retacno()!=n)
+		{
+			outFile.write((char *) &ac, sizeof(account));
+		}
+	}
+    inFile.close();
+	outFile.close();
+	remove("account.dat");
+	rename("Temp.dat","account.dat");
+	cout<<"\n\n\tRecord Deleted ..";
+}
+>>>>>>> origin/code4
 
 void deposit_withdraw(int n, int option)
 {

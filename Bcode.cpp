@@ -104,7 +104,7 @@ char account::rettype() const
 void write_account();			//function to write record in binary file 		
 void display_sp(int);			//function to display account details given by user (SHIVAM)
 void modify_account(int);		//function to modify record of file (SAJAL)
-void delete_account(int);		//function to delete record of file (PRATYUSH)
+void delete_account(int);		//Required changes done (PRATYUSH)
 void display_all();			//function to display all account details (RISHABH)
 void deposit_withdraw(int, int); 	// function to desposit/withdraw amount for given account (RACHIT)
 void intro();				//introductory screen function
@@ -188,6 +188,37 @@ void write_account()
 	outFile.close();
 }
 
+//***************************************************************
+//    	function to delete record of file
+//****************************************************************
+
+
+void delete_account(int n)
+{
+	account ac;
+	ifstream inFile;
+	ofstream outFile;
+	inFile.open("account.dat",ios::binary);
+	if(!inFile)
+	{
+		cout<<"File could not be open !! Press any Key...";
+		return;
+	}
+	outFile.open("Temp.dat",ios::binary);
+	inFile.seekg(0,ios::beg);
+	while(inFile.read((char *) &ac, sizeof(account)))
+	{
+		if(ac.retacno()!=n)
+		{
+			outFile.write((char *) &ac, sizeof(account));
+		}
+	}
+    inFile.close();
+	outFile.close();
+	remove("account.dat");
+	rename("Temp.dat","account.dat");
+	cout<<"\n\n\tRecord Deleted ..";
+}
 
 //***************************************************************
 //    	         function for introduction
